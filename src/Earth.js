@@ -3,15 +3,6 @@ import { useEffect } from "react";
 import io from "socket.io-client";
 // import image from "./e.jpg";
 
-const filterPredictions = (predictions) => {
-  const currentDate = new Date();
-  const filteredPredictions = predictions.filter((prediction) => {
-    const validUntilDate = new Date(prediction.validUntil);
-    return validUntilDate > currentDate;
-  });
-  return filteredPredictions;
-};
-
 const Earth = () => {
   const socket = io("http://localhost:3002");
 
@@ -23,13 +14,20 @@ const Earth = () => {
 
     const myDomElement = document.querySelector(".left-side");
 
-    // Event listener on new earthquake predictions
-    socket.on("predictions", (newPredictions) => {
-      console.log(predictions.length);
-      predictions = filterPredictions(predictions);
-      console.log(predictions.length);
-      predictions.push(newPredictions);
+    // Event listeners
+    socket.on("predictionInfo", (newPrediction) => {
+      predictions.push({
+        ...newPrediction.prediction,
+        maxR: 4,
+        propagationSpeed: 1,
+        repeatPeriod: 3000,
+      });
+      console.log(newPrediction.text);
       globe.ringsData(predictions);
+    });
+
+    socket.on("eqInfo", (earthquakeInfo) => {
+      console.log(earthquakeInfo.text);
     });
 
     const globe = Globe(myDomElement);
