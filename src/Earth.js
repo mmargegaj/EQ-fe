@@ -31,12 +31,14 @@ const Earth = () => {
     });
 
     const globe = Globe(myDomElement);
+
     globe(myDomElement)
       .globeImageUrl(imageUrl)
       .ringColor(() => colorInterpolator)
       .ringMaxRadius("maxR")
       .ringPropagationSpeed("propagationSpeed")
       .ringRepeatPeriod("repeatPeriod");
+    globe.controls().autoRotate = true;
   }, [socket]);
 };
 
