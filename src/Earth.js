@@ -1,17 +1,12 @@
 import Globe from "globe.gl";
 import { useEffect } from "react";
-import io from "socket.io-client";
 // import image from "./e.jpg";
 
-const Earth = () => {
-  const socket = io("http://localhost:3002");
-
+const Earth = (predictions) => {
   const imageUrl = "//unpkg.com/three-globe/example/img/earth-day.jpg";
   const colorInterpolator = (t) => `rgba(255,255,255,${1 - t})`;
 
   useEffect(() => {
-    let predictions = [];
-
     const myDomElement = document.querySelector(".left-side");
 
     setTimeout(() => {
@@ -21,7 +16,6 @@ const Earth = () => {
         if (div1.style) {
           // Remove the 'position' property from the inline styles
           div1.style.removeProperty("position");
-          console.log("sdfa");
         }
       }
       // Define the XPath expression
@@ -44,23 +38,7 @@ const Earth = () => {
           element.style.removeProperty("position");
         }
       }
-    }, 5000);
-
-    // Event listeners
-    socket.on("predictionInfo", (newPrediction) => {
-      predictions.push({
-        ...newPrediction.prediction,
-        maxR: 4,
-        propagationSpeed: 1,
-        repeatPeriod: 3000,
-      });
-      console.log(newPrediction.text);
-      globe.ringsData(predictions);
-    });
-
-    socket.on("eqInfo", (earthquakeInfo) => {
-      console.log(earthquakeInfo.text);
-    });
+    }, 3000);
 
     const globe = Globe(myDomElement);
 
@@ -71,7 +49,8 @@ const Earth = () => {
       .ringPropagationSpeed("propagationSpeed")
       .ringRepeatPeriod("repeatPeriod");
     globe.controls().autoRotate = true;
-  }, [socket]);
+    globe.ringsData(predictions);
+  }, [predictions]);
 };
 
 export default Earth;
