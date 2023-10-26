@@ -15,7 +15,7 @@ body {
 }
 
 .left-side {
-  width: 55%;
+  width: 60%;
   background-color: #f1f1f1;
   display: flex;
   align-items: center;
@@ -23,8 +23,10 @@ body {
 }
 
 .right-side {
-  width: 45%;
+  padding-left: 5px;
+  width: 40%;
   background-color: #3d3d3d;
+  color: #00ff00;
 }
 
 .App-logo {
