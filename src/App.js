@@ -6,12 +6,7 @@ import Earth from "./Earth";
 const App = () => {
   const socket = io("http://localhost:3002");
   const [predictions, setPredictions] = useState([]);
-  const [textInfo, setTextInfo] = useState([
-    "Earthquake: Cantwell, Alaska 20:55:33 at 62.9971, -149.7862 Magnitude: 1.1 \
-     Predicted: Cantwell, Alaska, 21:00:13 at 62.7631, -148.7466. Created at 20:49:39",
-    "Earthquake: Cantwell, Alaska 20:55:33 at 62.9971, -149.7862 Magnitude: 1.1 \
-     Predicted: Cantwell, Alaska, 21:00:13 at 62.7631, -148.7466. Created at 20:49:39",
-  ]);
+  const [textInfo, setTextInfo] = useState([]);
 
   useEffect(() => {
     // Event listeners
@@ -50,7 +45,9 @@ const App = () => {
             ))}
           </div>
         ) : (
-          "No info available yet... Waiting..."
+          <div className="waiting-message">
+            No info available yet... Waiting...
+          </div>
         )}
       </div>
     </div>
