@@ -38,7 +38,7 @@ const Earth = (predictions) => {
           element.style.removeProperty("position");
         }
       }
-    }, 3000);
+    }, 0);
 
     const globe = Globe(myDomElement);
 
@@ -49,7 +49,7 @@ const Earth = (predictions) => {
       .ringPropagationSpeed("propagationSpeed")
       .ringRepeatPeriod("repeatPeriod");
     globe.controls().autoRotate = true;
-    globe.ringsData(predictions);
+    if (predictions.length) globe.ringsData(predictions);
   }, [predictions]);
 };
 
