@@ -5,9 +5,10 @@ const TextInfo = () => {
   const [textInfo, setTextInfo] = useState([]);
 
   // Event listeners
-  socket.on("predictionInfo", (newPrediction) =>
-    setTextInfo((prevState) => [...prevState, newPrediction.text])
-  );
+  socket.on("predictionInfo", (newPrediction) => {
+    if (!textInfo.includes(newPrediction.text))
+      setTextInfo((prevState) => [...prevState, newPrediction.text]);
+  });
 
   socket.on("eqInfo", (earthquakeInfo) => {});
 
