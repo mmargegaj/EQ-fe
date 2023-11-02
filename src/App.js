@@ -1,5 +1,6 @@
 import "./App.css";
 import Earth from "./Earth";
+import TextInfo from "./TextInfo";
 function App() {
   return (
     // <div className="App">
@@ -7,9 +8,8 @@ function App() {
       <div className="left-side">
         <Earth />
       </div>
-      <div className="right-side"></div>
+      <TextInfo />
     </div>
-    // </div>
   );
 }
 
