@@ -37,15 +37,15 @@ const manipulateDom = () => {
 
 const Earth = () => {
   const imageUrl = "//unpkg.com/three-globe/example/img/earth-day.jpg";
-  const colorInterpolator = (t) => `rgba(255,255,255,${1 - t})`;
 
   useEffect(() => {
-    let predictions = [];
+    const predictions = [];
 
     setTimeout(() => manipulateDom(), 0);
 
     const myDomElement = document.querySelector(".left-side");
     const globe = Globe(myDomElement);
+    const colorInterpolator = (t) => `rgba(255,255,255,${1 - t})`;
 
     globe(myDomElement)
       .globeImageUrl(imageUrl)

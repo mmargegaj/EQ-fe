@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import socket from "./socket";
 
 const TextInfo = () => {
   const [textInfo, setTextInfo] = useState([]);
 
-  // Event listeners
-  socket.on("predictionInfo", (newPrediction) => {
-    if (!textInfo.includes(newPrediction.text))
-      setTextInfo((prevState) => [...prevState, newPrediction.text]);
-  });
+  const handlePredictionInfo = (newPrediction) => {
+    setTextInfo((prevState) => {
+      if (!prevState.includes(newPrediction.text)) {
+        return prevState.length < 20
+          ? [...prevState, newPrediction.text]
+          : [...prevState.slice(1), newPrediction.text];
+      }
+      return prevState;
+    });
+  };
+
+  useEffect(() => {
+    socket.on("predictionInfo", (newPrediction) =>
+      handlePredictionInfo(newPrediction)
+    );
+  }, []);
 
   socket.on("eqInfo", (earthquakeInfo) => {});
 
