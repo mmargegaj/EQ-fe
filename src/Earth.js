@@ -1,9 +1,7 @@
 import Globe from "globe.gl";
 import { useEffect } from "react";
-import io from "socket.io-client";
 // import image from "./e.jpg";
-
-const socket = io("http://localhost:3002");
+import socket from "./socket";
 
 const manipulateDom = () => {
   const div1 = document.querySelector(".scene-container");
@@ -37,7 +35,7 @@ const manipulateDom = () => {
   }
 };
 
-const Earth = ({ handleTextInfo }) => {
+const Earth = () => {
   const imageUrl = "//unpkg.com/three-globe/example/img/earth-day.jpg";
   const colorInterpolator = (t) => `rgba(255,255,255,${1 - t})`;
 
@@ -65,14 +63,13 @@ const Earth = ({ handleTextInfo }) => {
         propagationSpeed: 1,
         repeatPeriod: 3000,
       });
-      handleTextInfo(newPrediction.text);
       globe.ringsData(predictions);
     });
 
     socket.on("eqInfo", (earthquakeInfo) => {
       console.log(earthquakeInfo.text);
     });
-  }, [handleTextInfo]);
+  }, []);
 };
 
 export default Earth;
