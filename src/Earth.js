@@ -10,7 +10,6 @@ const manipulateDom = () => {
     if (div1.style) {
       // Remove the 'position' property from the inline styles
       div1.style.removeProperty("position");
-      console.log("sdfa");
     }
   }
   // Define the XPath expression
@@ -56,7 +55,7 @@ const Earth = () => {
     globe.controls().autoRotate = true;
 
     // Event listeners
-    socket.on("predictionInfo", (newPrediction) => {
+    socket.addEventListener("new_predictions", (newPrediction) => {
       predictions.push({
         ...newPrediction.prediction,
         maxR: 4,
@@ -66,8 +65,8 @@ const Earth = () => {
       globe.ringsData(predictions);
     });
 
-    socket.on("eqInfo", (earthquakeInfo) => {
-      console.log(earthquakeInfo.text);
+    socket.addEventListener("successful_prediction", (earthquakeInfo) => {
+      console.log(earthquakeInfo);
     });
   }, []);
 };

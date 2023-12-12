@@ -16,12 +16,10 @@ const TextInfo = () => {
   };
 
   useEffect(() => {
-    socket.on("predictionInfo", (newPrediction) =>
+    socket.addEventListener("successful-prediction", (newPrediction) =>
       handlePredictionInfo(newPrediction)
     );
   }, []);
-
-  socket.on("eqInfo", (earthquakeInfo) => {});
 
   return (
     <div className="right-side">
