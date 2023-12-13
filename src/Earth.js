@@ -53,9 +53,10 @@ const Earth = () => {
       .ringPropagationSpeed("propagationSpeed")
       .ringRepeatPeriod("repeatPeriod");
     globe.controls().autoRotate = true;
+    socket.addEventListener("connect", () => console.log("socket connected"));
 
     // Event listeners
-    socket.addEventListener("new_predictions", (newPrediction) => {
+    socket.addEventListener("successful_prediction", (newPrediction) => {
       predictions.push({
         ...newPrediction.prediction,
         maxR: 4,
@@ -63,10 +64,6 @@ const Earth = () => {
         repeatPeriod: 3000,
       });
       globe.ringsData(predictions);
-    });
-
-    socket.addEventListener("successful_prediction", (earthquakeInfo) => {
-      console.log(earthquakeInfo);
     });
   }, []);
 };

@@ -4,20 +4,31 @@ import socket from "./socket";
 const TextInfo = () => {
   const [textInfo, setTextInfo] = useState([]);
 
-  const handlePredictionInfo = (newPrediction) => {
+  const handlePredictionInfo = (successfulPrediction) => {
     setTextInfo((prevState) => {
-      if (!prevState.includes(newPrediction.text)) {
+      if (
+        !prevState.includes(successfulPrediction.earthquake.text) &&
+        !prevState.includes(successfulPrediction.prediction.text)
+      ) {
         return prevState.length < 20
-          ? [...prevState, newPrediction.text]
-          : [...prevState.slice(1), newPrediction.text];
+          ? [
+              ...prevState,
+              successfulPrediction.earthquake.text,
+              successfulPrediction.prediction.text,
+            ]
+          : [
+              ...prevState.slice(2),
+              successfulPrediction.earthquake.text,
+              successfulPrediction.prediction.text,
+            ];
       }
       return prevState;
     });
   };
 
   useEffect(() => {
-    socket.addEventListener("successful-prediction", (newPrediction) =>
-      handlePredictionInfo(newPrediction)
+    socket.addEventListener("successful_prediction", (successfulPrediction) =>
+      handlePredictionInfo(successfulPrediction)
     );
   }, []);
 
