@@ -65,6 +65,9 @@ const Earth = () => {
       });
       globe.ringsData(predictions);
     });
+
+    // visualize predictions on the globe
+    // socket.addEventListener("new_predictions", () => {})
   }, []);
 };
 
