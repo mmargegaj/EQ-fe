@@ -7,19 +7,19 @@ const TextInfo = () => {
   const handlePredictionInfo = (successfulPrediction) => {
     setTextInfo((prevState) => {
       if (
-        !prevState.includes(successfulPrediction.earthquake.text) &&
-        !prevState.includes(successfulPrediction.prediction.text)
+        !prevState.includes(successfulPrediction.prediction.text) &&
+        !prevState.includes(successfulPrediction.earthquake.text)
       ) {
         return prevState.length < 20
           ? [
               ...prevState,
-              successfulPrediction.earthquake.text,
               successfulPrediction.prediction.text,
+              successfulPrediction.earthquake.text,
             ]
           : [
               ...prevState.slice(2),
-              successfulPrediction.earthquake.text,
               successfulPrediction.prediction.text,
+              successfulPrediction.earthquake.text,
             ];
       }
       return prevState;
